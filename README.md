@@ -58,7 +58,7 @@
 
 ### Follow the action  
 
-When only a few players are alive most of the radar is just empty and only a very small part contains all the action. Boltobserv has an autozoom feature that fixes this. The radar image can automatically pan and zoom according to where the players are located, and smoothly follows the action.
+When only a few players are alive most of the radar is just empty and only a very small part contains all the action. The autozoom feature has resolved this issue. The radar image can automatically pan and zoom according to where the players are located, and smoothly follows the action.
   **<p align="center">![697](https://github.com/user-attachments/assets/28a271a4-d1ce-4516-ac13-740db8efcab0)</p>** 
 Autozoom tries to keep the action in the middle, with a safe padding around any players so they can never accidentally run off the radar image. it also has a minimal zoom level, so that the radar only zooms in when the action is concentrated in a small part of the map.  
 
