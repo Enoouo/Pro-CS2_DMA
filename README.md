@@ -1,4 +1,4 @@
-![cs2111](https://github.com/user-attachments/assets/4adc26a5-5ba6-4062-97b1-e140c9ffc772)
+![cs2-2024](https://github.com/user-attachments/assets/afbeb13e-1f2f-4a98-a77a-fb0f42a3ecf7)
 # <p align="center">Pro CS2 DMA</p>
 
 **<p align="center">English | [简体中文](https://github.com/Enoouo/Pro-CS2_DMA/blob/main/README.cn.md)</p>**
