@@ -115,16 +115,16 @@ Autozoom tries to keep the action in the middle, with a safe padding around any 
 
 # Planned tasks 📑  
 
-  - [ ] Fix the slight delay in ESP display
-  - [ ] Optimize aimbot movement trajectory to make it more human-like
+  - [ ] Fix the slight delay in ESP display (It seems like only I have this issue? My friend doesn't. Do you guys have it?)
+  - [x] Optimize aimbot movement trajectory to make it more human-like
   - [ ] Customize multiple bone selections for aimbot (currently: rifle: head, neck; pistol: head; sniper rifle: head, neck, upper torso, lower torso)
   - [ ] Add a dead zone to aimbot
-  - [ ] Fix the performance of sniper rifles under the Magnet triggerbot function
-  - [ ] Improve web radar functionality
+  - [x] Fix the performance of sniper rifles under the Magnet triggerbot function
+  - [x] Improve web radar functionality
   - [ ] Add item flight trajectory to web radar
   - [ ] Address issues related to C4, as traversing C4 consumes too much performance. It's currently disabled and will be improved once a solution is found
   - [ ] Optimize memory reading performance
-  - [ ] Revise kmbox-related code
+  - [x] Revise kmbox-related code
 
     
 
