@@ -40,11 +40,17 @@
 ## 🗺Radar Features
 |     Dots    |   Type   |     Description     |
 |  :---:       |   :---:  |         :---:       |
-|  ![ct_or_t](https://github.com/user-attachments/assets/173d2ba2-eae1-4ba7-8e80-11e5d85e137b)| Default     | Both CT and T players are shown, along with the weapon they're holding and their nickname.    |
+| ![player](https://github.com/user-attachments/assets/b41a9cdc-6461-47e9-a2c8-860e13e1f260) | Default     | Both CT and T players are shown, along with the weapon they're holding and their nickname.    |
 |  ![host_dot](https://github.com/user-attachments/assets/98a2df8b-3722-49b0-b36d-c5a38267a245)| Host       | The selected main view player is easy to distinguish.      |
-|  ![hp_dot](https://github.com/user-attachments/assets/95df1103-a9cb-48ae-8eeb-f1e8cdea3132)| Health indicator  | When a player loses health, the color of the health ring will change accordingly.      |
-|  ![boom](https://github.com/user-attachments/assets/718e966d-aaee-443e-bc70-05e1a18f0689)| Bomb carrier  | Shows the player that has the C4 with them. Easily spottable on the radar because of the color difference.      |
-|  ![dead_dot](https://github.com/user-attachments/assets/fcaa4f10-0b0c-41db-bedb-9d9b2aca9869)| Dead  | Killed players are still faintly visible on the radar as a small cross.      |
+| ![low hp](https://github.com/user-attachments/assets/101e1743-abca-4cf3-a6c8-f2dbe81ca284) | Health indicator  | When a player loses health, the color of the health ring will change accordingly.      |
+| ![boom player](https://github.com/user-attachments/assets/44848735-f3ee-4c59-9d8e-a6476ef302e7)| Bomb carrier  | Shows the player that has the C4 with them. Easily spottable on the radar because of the color difference. |
+| ![dead](https://github.com/user-attachments/assets/16de6160-cb20-4273-b4ef-7e255db29bff)| Dead  | Killed players are still faintly visible on the radar as a small cross.      |
+| ![f1 (1)](https://github.com/user-attachments/assets/e6e2fcf2-d29a-4c14-bbb6-da1b9a845ce0)| Firing state  | Player firing state.      |
+| ![Hurt (1)](https://github.com/user-attachments/assets/8207e985-e6f9-49ff-ac47-776c3e7abf0d)| Hurt  | When the player takes damage.     |
+| ![shan (1)](https://github.com/user-attachments/assets/7a4edc95-f4bf-4323-8833-485db1b82173)| Blinded | The state when a player is blinded by a flashbang.     |
+| ![smoke (1)](https://github.com/user-attachments/assets/e0287184-10de-47f0-8cf9-9e3ed3697d86)| Smoke | Smoke grenade by CT and T teams.     |
+| ![huo (1)](https://github.com/user-attachments/assets/354542b5-0c90-46f2-8f46-ae2b1a0905dd)| Incendiary  | Incendiary grenade.     |
+| ![zhayan](https://github.com/user-attachments/assets/09937762-0e49-46f2-ac1e-bd0bf7fd0547)| Explosion  | Smoke grenade exploded by a grenade.     |
 
 ### Follow the action  
 
@@ -61,8 +67,9 @@ Autozoom tries to keep the action in the middle, with a safe padding around any 
 
 |     Advisory    |   Type   |     Description     |
 |  :---:       |   :---:  |         :---:       |
-|  ![6877](https://github.com/user-attachments/assets/0ea14f54-aa51-40f4-8137-e03e4e9f22ce)| Default     | This is displayed when no other notable events are happening.    |
-|  ![33a](https://github.com/user-attachments/assets/b733d1ea-91d3-46a4-acf3-715ed114b164)| Defusing      | A CT is defusing the bomb.      |  
+| ![no](https://github.com/user-attachments/assets/285a2d04-5001-4a59-ac1f-b954e4c15fc1)| Default     | This is displayed when no other notable events are happening.    |
+| ![plant](https://github.com/user-attachments/assets/af6671fc-581c-4858-af52-b39487e2d625)| Planted bomb  | Countdown after bomb is planted.      |  
+| ![chai](https://github.com/user-attachments/assets/8b698bfc-623b-4d75-b6a9-5334384db852)| Defusing      | A CT is defusing the bomb.      |
 
 
 
