@@ -30,7 +30,8 @@
 ## 🧩 Screenshots
 > Esp feature demonstration.
 > 
-> ![IMG_0099](https://github.com/user-attachments/assets/1435dd2c-3a5a-4ada-9087-b775c1a02091)
+> ![esp](https://github.com/user-attachments/assets/76f2fe8f-c0d5-4852-97cd-a5b98f7bd548)
+
 > 
 > Visible check and dynamic FOV feature demonstration.
 > ![IMG_0098 mov_20240820_010313_compressed](https://github.com/user-attachments/assets/54c6202b-45c7-40da-a8a5-36d68993c030)
@@ -46,7 +47,8 @@
 <p align="center">Easy to read, infinitely resizeable.</p>
 <p align="center">Two styles: static and centered, rotating with the view.</p>
 
-**<p align="center">![test01](https://github.com/user-attachments/assets/3fddaf8a-29c0-4bdb-abe3-07eef1d42a88)      ![2024-08-19 21-57-16 mkv_20240820_003716_compressed](https://github.com/user-attachments/assets/16092ecd-3e24-45c0-9f0b-13dccefbc817)</p>**
+![radar_2024 11 03-18 41](https://github.com/user-attachments/assets/30b4b6c6-2239-435d-bd4c-f6f26f656e8a)
+
 
 ## 🎉Radar Features
 |     Dots    |   Type   |     Description     |
@@ -90,40 +92,22 @@ Autozoom tries to keep the action in the middle, with a safe padding around any 
 # How to use ❓
 
   1. Download the latest [release](https://github.com/Enoouo/Pro-CS2_DMA/releases).
-  2. Download the [map](https://github.com/Enoouo/Pro-CS2_DMA/tree/main/maps) files in the project's maps directory.
-  3. After extracting, maintain the following directory structure.
-     - 📁web radar
-       - radar.exe
-       - ...
-       - ...
-     - 📁maps
-        - de_mirage
-        - de_inferno
-        - de_dust2
-        - ...
-        - ...
-     - Pro CS2.exe
-     - config.cfg
-     - offsets
-     - leechcore.dll
-     - ...
-     - ...
-  4. Run `radar.exe` (if using this feature).
-  5. Run `Pro CS2.exe`
-  6. Enjoy the game😀
+  2. Run `radar.exe` (if use this feature).
+  3. Run `Pro CS2.exe`
+  4. Enjoy the game😀
 
 
 # Planned tasks 📑  
 
-  - [ ] Fix the slight delay in ESP display (It seems like only I have this issue? My friend doesn't. Do you guys have it?)
+  - [x] Fix the slight delay in ESP display (It seems like only I have this issue? My friend doesn't. Do you guys have it?)
   - [x] Optimize aimbot movement trajectory to make it more human-like
-  - [ ] Customize multiple bone selections for aimbot (currently: rifle: head, neck; pistol: head; sniper rifle: head, neck, upper torso, lower torso)
+  - [x] Customize multiple bone selections for aimbot (currently: rifle: head, neck; pistol: head; sniper rifle: head, neck, upper torso, lower torso)
   - [ ] Add a dead zone to aimbot
   - [x] Fix the performance of sniper rifles under the Magnet triggerbot function
   - [x] Improve web radar functionality
-  - [ ] Add item flight trajectory to web radar
-  - [ ] Address issues related to C4, as traversing C4 consumes too much performance. It's currently disabled and will be improved once a solution is found
-  - [ ] Optimize memory reading performance
+  - [x] Add item flight trajectory to web radar
+  - [x] Address issues related to C4, as traversing C4 consumes too much performance. It's currently disabled and will be improved once a solution is found
+  - [x] Optimize memory reading performance
   - [x] Revise kmbox-related code
 
     
