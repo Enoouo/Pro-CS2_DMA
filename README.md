@@ -7,25 +7,12 @@
 <p align="center">「Pro CS2 DMA」 is a passion project, and I will do my best to optimize the user experience. I hope everyone can offer good suggestions for improvement. The project itself is in C++, with the radar based on JavaScript and HTML. Suggestions can be related to technical skills or even natural language logic. Everyone is smart, and maybe your inspiration can bring significant improvements to the project.</p>
 
 ## ✨Features 
-+ Aimbot🔫
-  - Aimbot
-  - Magnet triggerbot
-  - Triggerbot
-  - Recoil with smoothing
-  - Dynamic FOV
-  - Weapon group: rifle, sniper, smg, shotgun...
-
-+ Visuals👀
-  - Esp Box
-  - Esp Bones
-  - Esp Joints 
-  - Player name                            
-  - Weapon
-  - Health
- 
-+ Misc
-  - Visible check via VPK parsing
-  - Decrypt platform encryption
+|     Feature  |   Preview   |
+|  :---:       |   :---:     |
+| Aimbot🔫    | ![aim](https://github.com/user-attachments/assets/6ae23d1b-df50-48f3-964f-60830b2745c8)  |
+| Visuals👀   | ![esp](https://github.com/user-attachments/assets/d9127f6a-cd54-4c63-af0d-090c5e026cf2)  |
+| Misc⚙       | ![misc](https://github.com/user-attachments/assets/ed60409f-c3f7-4fd2-b030-8f1efd88e948) |
+| Other       | Decrypt platform encryption、Visible check via VPK parsing  |
  
 ## 🧩 Screenshots
 > Esp feature demonstration.
@@ -50,7 +37,7 @@
 ![radar_2024 11 03-18 41](https://github.com/user-attachments/assets/30b4b6c6-2239-435d-bd4c-f6f26f656e8a)
 
 
-## 🎉Radar Features
+## 🗺Radar Features
 |     Dots    |   Type   |     Description     |
 |  :---:       |   :---:  |         :---:       |
 |  ![ct_or_t](https://github.com/user-attachments/assets/173d2ba2-eae1-4ba7-8e80-11e5d85e137b)| Default     | Both CT and T players are shown, along with the weapon they're holding and their nickname.    |
@@ -99,16 +86,16 @@ Autozoom tries to keep the action in the middle, with a safe padding around any 
 
 # Planned tasks 📑  
 
-  - [x] Fix the slight delay in ESP display (It seems like only I have this issue? My friend doesn't. Do you guys have it?)
-  - [x] Optimize aimbot movement trajectory to make it more human-like
-  - [x] Customize multiple bone selections for aimbot (currently: rifle: head, neck; pistol: head; sniper rifle: head, neck, upper torso, lower torso)
+  - [x] ✅Fix the slight delay in ESP display (It seems like only I have this issue? My friend doesn't. Do you guys have it?)
+  - [x] ✅Optimize aimbot movement trajectory to make it more human-like
+  - [x] ✅Customize multiple bone selections for aimbot (currently: rifle: head, neck; pistol: head; sniper rifle: head, neck, upper torso, lower torso)
   - [ ] Add a dead zone to aimbot
-  - [x] Fix the performance of sniper rifles under the Magnet triggerbot function
-  - [x] Improve web radar functionality
-  - [x] Add item flight trajectory to web radar
-  - [x] Address issues related to C4, as traversing C4 consumes too much performance. It's currently disabled and will be improved once a solution is found
-  - [x] Optimize memory reading performance
-  - [x] Revise kmbox-related code
+  - [x] ✅Fix the performance of sniper rifles under the Magnet triggerbot function
+  - [x] ✅Improve web radar functionality
+  - [x] ✅Add item flight trajectory to web radar
+  - [x] ✅Address issues related to C4, as traversing C4 consumes too much performance. It's currently disabled and will be improved once a solution is found
+  - [x] ✅Optimize memory reading performance
+  - [x] ✅Revise kmbox-related code
 
     
 
