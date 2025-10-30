@@ -1,142 +1,135 @@
-![cs2-2024](https://github.com/user-attachments/assets/afbeb13e-1f2f-4a98-a77a-fb0f42a3ecf7)
-# <p align="center">Pro CS2 DMA</p>
+<div align="center">
 
-**<p align="center">[English](https://github.com/Enoouo/Pro-CS2_DMA/blob/main/README.md) | 简体中文</p>**
+<img src="https://github.com/user-attachments/assets/b17feaa3-f724-479a-8d21-e27706c387ed" width="1080" alt="Pro CS2 DMA Banner"/>
 
+<h1>🌌 <b>Pro CS2 DMA</b></h1>
 
-<p align="center">「Pro CS2 DMA」是一个兴趣项目，我会尽力去优化使用体验，希望大家可以提出好的改进建议，项目本身是C++，雷达基于JavaScript和HTML，建议可以是专业技能相关的，也可以是自然语言逻辑表达，每个人都很聪明，也许你的灵感可以给项目带来很大帮助。</p>
+**[English](https://github.com/Enoouo/Pro-CS2_DMA/blob/main/README.md) | 简体中文**
 
-## ✨功能 
-+ 瞄准🔫
-  - 自瞄
-  - 磁性扳机
-  - 扳机
-  - 反后坐力
-  - 动态 FOV
-  - 武器分组设置: 步枪, 狙击枪, 微冲, 霰弹枪...
+> 「Pro CS2 DMA」 是一个以热爱为驱动的项目，核心使用 **C++** 与 **JavaScript/HTML** 编写。  
+> 追求极致的性能、精准的逻辑与清晰的视觉表现。  
+> 你的灵感，或许能成为下一次重大改进的关键。  
 
-+ 视觉👀
-  - 方框显示
-  - 骨骼显示
-  - 关节显示
-  - 玩家昵称显示                          
-  - 武器显示
-  - 血量显示
- 
-+ 其他
-  - 基于解析地图文件的掩体检测
-  - 解密平台的加密
- 
-## 🧩 截图
-> 视觉效果演示
-> 
-> ![IMG_0099](https://github.com/user-attachments/assets/e189f288-048c-4b7d-852e-dcc649964b62)
-> 
-> 掩体检测和动态FOV演示  
+---
+
+[![GitHub Stars](https://img.shields.io/github/stars/Enoouo/Pro-CS2_DMA?color=ffcc00&style=for-the-badge&logo=github)](https://github.com/Enoouo/Pro-CS2_DMA/stargazers)
+[![GitHub Release](https://img.shields.io/github/v/release/Enoouo/Pro-CS2_DMA?color=1e88e5&style=for-the-badge&logo=rocket)](https://github.com/Enoouo/Pro-CS2_DMA/releases)
+[![Downloads](https://img.shields.io/github/downloads/Enoouo/Pro-CS2_DMA/total?color=26a69a&style=for-the-badge&logo=github)](https://github.com/Enoouo/Pro-CS2_DMA/releases)
+
+</div>
+
+---
+
+## ✨ 功能展示
+
+| 功能 | 预览图 |
+| :-- | :-- |
+| 🎯 **瞄准** | ![aim](https://github.com/user-attachments/assets/2956b210-3e9b-4cf7-8136-693174c2ce5f) |
+| 👁 **视觉** | ![esp](https://github.com/user-attachments/assets/85b5939d-9b2d-4b72-b8cc-a7b340d6b34f) |
+| ⚙ **杂项** | ![misc](https://github.com/user-attachments/assets/d79b55cc-2045-42e3-9ba0-479e391fca84) |
+| 🧩 **其他** | 平台加密解密 · 通过 VPK 解析实现可见性检测 |
+
+---
+
+## 📸 功能演示
+
+> **ESP 功能演示**
+>
+> ![esp](https://github.com/user-attachments/assets/76f2fe8f-c0d5-4852-97cd-a5b98f7bd548)
+>
+> **可见性检测与动态 FOV**
+>
 > ![IMG_0098 mov_20240820_010313_compressed](https://github.com/user-attachments/assets/54c6202b-45c7-40da-a8a5-36d68993c030)
 
+---
 
+<div align="center">
 
-                              
+<h2>🧭 Web 雷达</h2>
 
- 
+<p>简洁易读 · 无限缩放 · 实时同步</p>
+<p>支持 <b>静态模式</b> 与 <b>旋转模式</b>，可随视角自动旋转。</p>
 
-# <p align="center">网页雷达🧭</p>
-<p align="center">易于阅读, 可调整大小，支持移动端观看</p>
-<p align="center">两种样式: 静态和动态, 雷达跟随主视角移动和旋转</p>
+<img src="https://github.com/user-attachments/assets/30b4b6c6-2239-435d-bd4c-f6f26f656e8a" width="750" alt="Radar"/>
 
-**<p align="center">![test01](https://github.com/user-attachments/assets/3fddaf8a-29c0-4bdb-abe3-07eef1d42a88)      ![2024-08-19 21-57-16 mkv_20240820_003716_compressed](https://github.com/user-attachments/assets/16092ecd-3e24-45c0-9f0b-13dccefbc817)</p>**
+</div>
 
-## 🎉雷达功能
-|     标记    |   类型   |     描述     |
-|  :---:       |   :---:  |         :---:       |
-|  ![ct_or_t](https://github.com/user-attachments/assets/173d2ba2-eae1-4ba7-8e80-11e5d85e137b)| 默认     | 区分CT和T阵营玩家，同时显示玩家所持的武器和玩家昵称    |
-|  ![host_dot](https://github.com/user-attachments/assets/98a2df8b-3722-49b0-b36d-c5a38267a245)| 高亮玩家    | 高亮显示选择的玩家，由于颜色差异，容易区分      |
-|  ![hp_dot](https://github.com/user-attachments/assets/95df1103-a9cb-48ae-8eeb-f1e8cdea3132)| 血量环  | 当玩家损失血量后，血量环的颜色会随之变化      |
-|  ![boom](https://github.com/user-attachments/assets/718e966d-aaee-443e-bc70-05e1a18f0689)| 炸弹  | 显示携带C4的玩家，由于颜色差异，很容易在雷达上发现      |
-|  ![dead_dot](https://github.com/user-attachments/assets/fcaa4f10-0b0c-41db-bedb-9d9b2aca9869)| 死亡  | 被击杀的玩家在雷达上仍会隐约显示小十字      |
+---
 
-### 战斗动态
+## 🗺 雷达标识说明
 
-当仅有少数玩家存活时，大部分雷达显示区域都是空的，只有很小的一部分包含所有的战斗，自动缩放功能解决了这个问题。雷达图像可以根据玩家所在位置自动平移和缩放，并且平滑地跟随战斗动态。
-  **<p align="center">![697](https://github.com/user-attachments/assets/28a271a4-d1ce-4516-ac13-740db8efcab0)</p>** 
-自动缩放功能试图将战斗保持在雷达的中央，周围留有一定的安全间隔，以确保玩家不会意外地跑出雷达图像。它还具有一个最小缩放级别，因此只有当战斗集中在地图的一小部分时，雷达才会放大显示 
+| 图标 | 类型 | 说明 |
+| :--: | :--: | :-- |
+| ![player](https://github.com/user-attachments/assets/b41a9cdc-6461-47e9-a2c8-860e13e1f260) | 默认 | 显示所有玩家、武器及昵称 |
+| ![host_dot](https://github.com/user-attachments/assets/98a2df8b-3722-49b0-b36d-c5a38267a245) | 主视角玩家 | 当前选中的主视角目标 |
+| ![low hp](https://github.com/user-attachments/assets/101e1743-abca-4cf3-a6c8-f2dbe81ca284) | 血量指示 | 血环颜色随生命值动态变化 |
+| ![boom player](https://github.com/user-attachments/assets/44848735-f3ee-4c59-9d8e-a6476ef302e7) | 携带 C4 玩家 | 显示携带炸弹的玩家 |
+| ![dead](https://github.com/user-attachments/assets/16de6160-cb20-4273-b4ef-7e255db29bff) | 死亡状态 | 被击杀的玩家会以淡十字显示 |
+| ![f1](https://github.com/user-attachments/assets/e6e2fcf2-d29a-4c14-bbb6-da1b9a845ce0) | 开火状态 | 显示正在射击的玩家 |
+| ![Hurt](https://github.com/user-attachments/assets/8207e985-e6f9-49ff-ac47-776c3e7abf0d) | 受伤 | 显示玩家受到伤害的状态 |
+| ![shan](https://github.com/user-attachments/assets/7a4edc95-f4bf-4323-8833-485db1b82173) | 致盲 | 玩家被闪光弹致盲时显示 |
+| ![smoke](https://github.com/user-attachments/assets/e0287184-10de-47f0-8cf9-9e3ed3697d86) | 烟雾 | 显示 CT/T 双方的烟雾弹 |
+| ![huo](https://github.com/user-attachments/assets/354542b5-0c90-46f2-8f46-ae2b1a0905dd) | 火焰 | 显示燃烧弹与燃烧区域 |
+| ![zhayan](https://github.com/user-attachments/assets/09937762-0e49-46f2-ac1e-bd0bf7fd0547) | 爆炸 | 显示爆炸类物体的触发点 |
 
-  
+---
 
+### 🎥 自动聚焦（Autozoom）
 
-### 提示
+当存活玩家较少时，雷达上会出现大量空白区域。  
+**Autozoom 自动缩放功能** 可智能聚焦战斗区域，并随战况平滑移动。
 
-  提示是自动检测到的事件，观察者可能会希望了解到这些事件。 
+<div align="center">
+<img src="https://github.com/user-attachments/assets/28a271a4-d1ce-4516-ac13-740db8efcab0" width="520" alt="Autozoom"/>
+</div>
 
-|     Advisory    |   Type   |     Description     |
-|  :---:       |   :---:  |         :---:       |
-|  ![6877](https://github.com/user-attachments/assets/0ea14f54-aa51-40f4-8137-e03e4e9f22ce)| Default     | This is displayed when no other notable events are happening.    |
-|  ![33a](https://github.com/user-attachments/assets/b733d1ea-91d3-46a4-acf3-715ed114b164)| Defusing      | A CT is defusing the bomb.      |  
+---
 
+### ⚠️ 事件提示（Advisories）
 
+系统会自动检测关键事件，帮助观战者快速响应。
 
-### 更多
-  + 在地图上显示烟雾弹、燃烧弹和闪光弹
-  + 为Nuke和Vertigo的上下层地图提供分离显示
-  + 玩家标记的Z轴高度指示器，可以通过颜色点或比例尺显示
-  + 支持任意雷达背景颜色，包括完全透明
-  + 玩家选择，选择主视角
-  + 隐藏队友
+| 图标 | 事件 | 说明 |
+| :--: | :--: | :-- |
+| ![no](https://github.com/user-attachments/assets/285a2d04-5001-4a59-ac1f-b954e4c15fc1) | 默认 | 当前无特殊事件 |
+| ![plant](https://github.com/user-attachments/assets/af6671fc-581c-4858-af52-b39487e2d625) | 已安装炸弹 | 显示倒计时与爆炸时间 |
+| ![chai](https://github.com/user-attachments/assets/8b698bfc-623b-4d75-b6a9-5334384db852) | 正在拆弹 | CT 正在进行拆除操作 |
 
+---
 
+### 💡 其他特性
+- 烟雾、燃烧弹、闪光弹均显示在地图上  
+- Nuke / Vertigo 地图支持上下层分层显示  
+- 玩家高度差以颜色或比例标识  
+- 可自定义任意雷达背景颜色（含全透明）  
+- 支持玩家选择与队友隐藏  
 
-# 怎么使用 ❓
+---
 
-  1. 下载最新[发布](https://github.com/Enoouo/Pro-CS2_DMA/releases)的版本。
-  2. 下载项目中 'maps' 目录下的 [地图](https://github.com/Enoouo/Pro-CS2_DMA/tree/main/maps) 文件。
-  3. 解压后确保目录结构正常
-     - 📁web radar
-       - radar.exe
-       - ...
-       - ...
-     - 📁maps
-        - de_mirage
-        - de_inferno
-        - de_dust2
-        - ...
-        - ...
-     - Pro CS2.exe
-     - config.cfg
-     - offsets
-     - leechcore.dll
-     - ...
-     - ...
-  4. 运行 `radar.exe` (如果使用此功能)
-  5. 运行 `Pro CS2.exe`
-  6. 享受游戏😀
+## 🚀 使用说明
 
-注意:所有设置内容都在 config.cfg 文件里，请使用前查看
+1. 📦 下载最新版本 [**Release**](https://github.com/Enoouo/Pro-CS2_DMA/releases)  
+2. ▶ 运行 `radar.exe`（如需使用雷达功能）  
+3. 🎮 运行 `Pro CS2.exe`  
+4. ✅ 享受增强的 CS2 游戏体验！  
 
-# 计划任务 📑  
+---
 
-  - [ ] 修复 Esp 显示有点延迟的问题（似乎只有我遇到了这个问题，我朋友没有，你们有吗?）
-  - [x] 优化 aimbot 移动轨迹更像人类
-  - [ ] aimbot 骨骼自定义多选(目前步枪:头, 颈部; 手枪:头，狙击枪:头， 颈部，上躯干， 下躯干)
-  - [ ] aimbot 增加死区
-  - [x] 修复 Magnet triggerbot 功能下 狙击枪的表现
-  - [x] 完善网页雷达功能
-  - [ ] 网页雷达增加道具飞行轨迹
-  - [ ] 处理关于C4的问题，遍历C4过于消耗性能，现在关闭了，等找到解决方案再完善
-  - [ ] 优化内存读取性能
-  - [x] 重新修改kmbox相关代码
+> [!NOTE]
+> 源码将在整理完毕后发布。  
+> 当前提供可执行版本用于测试。
 
-    
+💬 有任何建议或问题？请通过 [**Issues**](https://github.com/Enoouo/Pro-CS2_DMA/issues) 告诉我！  
+⭐ 如果本项目对你有帮助，请点亮一个 **Star** 支持后续更新！
 
-    
+---
 
-> [!IMPORTANT]
-> 还有些功能需要完善，我会尽快更新，等代码整理完善好后上传源码，在此之前先发布打包好的程序。 
+<div align="center">
 
-对于项目您有什么建议，请使用 'Issues' 告诉我 
+**Made with ❤️ by [Enoooo](https://github.com/Enoouo)**  
 
-如果项目给您提供了帮助，请为我点一个⭐star⭐
+<img src="https://img.shields.io/github/stars/Enoouo/Pro-CS2_DMA?style=for-the-badge&color=ffcc00" />
+<img src="https://img.shields.io/github/v/release/Enoouo/Pro-CS2_DMA?style=for-the-badge&color=1e88e5" />
+<img src="https://img.shields.io/github/downloads/Enoouo/Pro-CS2_DMA/total?style=for-the-badge&color=26a69a" />
 
-
-
-
+</div>
