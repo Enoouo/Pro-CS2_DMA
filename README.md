@@ -13,8 +13,8 @@
 ---
 
 [![GitHub Stars](https://img.shields.io/github/stars/Enoouo/Pro-CS2_DMA?color=ffcc00&style=for-the-badge&logo=github)](https://github.com/Enoouo/Pro-CS2_DMA/stargazers)
-[![GitHub Release](https://img.shields.io/github/v/release/Enoouo/Pro-CS2_DMA?color=00e5ff&style=for-the-badge&logo=rocket)](https://github.com/Enoouo/Pro-CS2_DMA/releases)
-[![Downloads](https://img.shields.io/github/downloads/Enoouo/Pro-CS2_DMA/total?color=00ffb7&style=for-the-badge&logo=github)](https://github.com/Enoouo/Pro-CS2_DMA/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/Enoouo/Pro-CS2_DMA?color=1e88e5&style=for-the-badge&logo=rocket)](https://github.com/Enoouo/Pro-CS2_DMA/releases)
+[![Downloads](https://img.shields.io/github/downloads/Enoouo/Pro-CS2_DMA/total?color=26a69a&style=for-the-badge&logo=github)](https://github.com/Enoouo/Pro-CS2_DMA/releases)
 
 </div>
 
@@ -130,7 +130,7 @@ Detects key in-game events — helping observers react quickly.
 **Made with ❤️ by [Enoooo](https://github.com/Enoouo)**  
 
 <img src="https://img.shields.io/github/stars/Enoouo/Pro-CS2_DMA?style=for-the-badge&color=ffcc00" />
-<img src="https://img.shields.io/github/v/release/Enoouo/Pro-CS2_DMA?style=for-the-badge&color=00e5ff" />
-<img src="https://img.shields.io/github/downloads/Enoouo/Pro-CS2_DMA/total?style=for-the-badge&color=00ffb7" />
+<img src="https://img.shields.io/github/v/release/Enoouo/Pro-CS2_DMA?style=for-the-badge&color=1e88e5" />
+<img src="https://img.shields.io/github/downloads/Enoouo/Pro-CS2_DMA/total?style=for-the-badge&color=26a69a" />
 
 </div>
