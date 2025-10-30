@@ -1,6 +1,6 @@
 <div align="center">
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/18249a75-fb94-4954-81f8-b6e6eeb44fd2" width="1080" alt="Pro CS2 DMA Banner" />
+  <img src="https://github.com/user-attachments/assets/b17feaa3-f724-479a-8d21-e27706c387ed" width="1080" alt="Pro CS2 DMA Banner" />
 </p>
 
 
