@@ -1,6 +1,8 @@
 <div align="center">
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/18249a75-fb94-4954-81f8-b6e6eeb44fd2" width="1080" alt="Pro CS2 DMA Banner" />
+</p>
 
-<img src="https://github.com/user-attachments/assets/afbeb13e-1f2f-4a98-a77a-fb0f42a3ecf7" width="640" alt="Pro CS2 DMA Banner"/>
 
 # 🌌 <span style="background: linear-gradient(90deg, #00c6ff, #0072ff); -webkit-background-clip: text; color: transparent;">Pro CS2 DMA</span>  
 
