@@ -8,8 +8,8 @@ on:
         required: false
         default: "false"
   schedule:
-    # 每 30 分钟检查一次
-    - cron: "*/30 * * * *"
+    # 每小时检查一次
+    - cron: "0 */1 * * *"
 
 permissions:
   contents: write
