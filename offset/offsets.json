@@ -1,0 +1,44 @@
+{
+  "client.dll": {
+    "dwCSGOInput": 36811488,
+    "dwEntityList": 38470232,
+    "dwGameEntitySystem": 38470232,
+    "dwGameEntitySystem_highestEntityIndex": 8352,
+    "dwGameRules": 36761296,
+    "dwGlobalVars": 33944896,
+    "dwGlowManager": 36748504,
+    "dwLocalPlayerController": 36655144,
+    "dwLocalPlayerPawn": 33991136,
+    "dwPlantedC4": 36801120,
+    "dwPrediction": 33990896,
+    "dwSensitivity": 36751336,
+    "dwSensitivity_sensitivity": 88,
+    "dwViewAngles": 36813160,
+    "dwViewMatrix": 36769552,
+    "dwViewRender": 36770600,
+    "dwWeaponC4": 36283056
+  },
+  "engine2.dll": {
+    "dwBuildNumber": 6350100,
+    "dwNetworkGameClient": 9475536,
+    "dwNetworkGameClient_clientTickCount": 888,
+    "dwNetworkGameClient_deltaTick": 588,
+    "dwNetworkGameClient_isBackgroundMap": 2888735,
+    "dwNetworkGameClient_localPlayer": 248,
+    "dwNetworkGameClient_maxClients": 576,
+    "dwNetworkGameClient_serverTickCount": 588,
+    "dwNetworkGameClient_signOnState": 560,
+    "dwWindowHeight": 9492892,
+    "dwWindowWidth": 9492888
+  },
+  "inputsystem.dll": {
+    "dwInputSystem": 285392
+  },
+  "matchmaking.dll": {
+    "dwGameTypes": 1802240
+  },
+  "soundsystem.dll": {
+    "dwSoundSystem": 5190768,
+    "dwSoundSystem_engineViewData": 124
+  }
+}
