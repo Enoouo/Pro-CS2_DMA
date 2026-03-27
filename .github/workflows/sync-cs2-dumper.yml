@@ -25,7 +25,7 @@ jobs:
       UPSTREAM_OWNER: a2x
       UPSTREAM_REPO: cs2-dumper
 
-      # 你的本地目标目录
+      # 本地目标目录
       LOCAL_DIR: offset
       LOCAL_INFO: offset/info.json
       LOCAL_CLIENT: offset/client_dll.json
@@ -201,11 +201,20 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: sync cs2-dumper (${{
-            steps.resolve.outputs.best_label
-          }}) @ ${{
-            steps.resolve.outputs.best_ts
-          }}"
+          SOURCE_LABEL="${{ steps.resolve.outputs.best_label }}"
+          TS="${{ steps.resolve.outputs.best_ts }}"
+
+          # 格式化时间：2026-03-27T23:59:59 → 2026-03-27 23:59
+          FORMATTED_TIME=$(date -u -d "$TS" +"%Y-%m-%d %H:%M")
+
+          if [[ "$SOURCE_LABEL" =~ ^pr\ \#([0-9]+)$ ]]; then
+            PR_NUMBER="${BASH_REMATCH[1]}"
+            COMMIT_MSG="offset update: sync cs2-dumper (PR #${PR_NUMBER}) @ ${FORMATTED_TIME}"
+          else
+            COMMIT_MSG="offset update: sync cs2-dumper (main) @ ${FORMATTED_TIME}"
+          fi
+
+          git commit -m "$COMMIT_MSG"
           git push
 
       - name: No update
