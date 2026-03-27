@@ -1,0 +1,213 @@
+name: Sync cs2-dumper offsets
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force sync even if local files do not appear older"
+        required: false
+        default: "false"
+  schedule:
+    # 每 30 分钟检查一次
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-cs2-dumper
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      UPSTREAM_OWNER: a2x
+      UPSTREAM_REPO: cs2-dumper
+
+      # 你的本地目标目录
+      LOCAL_DIR: offset
+      LOCAL_INFO: offset/info.json
+      LOCAL_CLIENT: offset/client_dll.json
+      LOCAL_OFFSETS: offset/offsets.json
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Resolve newest source from main + open PRs
+        id: resolve
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE: ${{ github.event.inputs.force || 'false' }}
+        run: |
+          set -euo pipefail
+
+          API_ROOT="https://api.github.com/repos/${UPSTREAM_OWNER}/${UPSTREAM_REPO}"
+          mkdir -p .sync_tmp
+
+          # 读取本地 timestamp（如果本地还没有文件，则为空）
+          LOCAL_TS=""
+          if [ -f "$LOCAL_INFO" ]; then
+            LOCAL_TS=$(jq -r '.timestamp // ""' "$LOCAL_INFO")
+          fi
+
+          echo "Local timestamp: ${LOCAL_TS:-<none>}"
+
+          BEST_SOURCE="none"
+          BEST_REF=""
+          BEST_TS=""
+          BEST_LABEL=""
+
+          update_best() {
+            local source="$1"
+            local ref="$2"
+            local ts="$3"
+            local label="$4"
+
+            if [ -z "$ts" ] || [ "$ts" = "null" ]; then
+              return
+            fi
+
+            if [ -z "$BEST_TS" ] || [ "$ts" \> "$BEST_TS" ]; then
+              BEST_SOURCE="$source"
+              BEST_REF="$ref"
+              BEST_TS="$ts"
+              BEST_LABEL="$label"
+            fi
+          }
+
+          fetch_info_ts_by_ref() {
+            local ref="$1"
+            curl -fsSL \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              "${API_ROOT}/contents/output/info.json?ref=${ref}" \
+              | jq -r '.content' \
+              | tr -d '\n' \
+              | base64 -d \
+              > .sync_tmp/current_info.json
+
+            jq -r '.timestamp // ""' .sync_tmp/current_info.json
+          }
+
+          # 先检查 main
+          echo "Checking main..."
+          MAIN_TS=$(fetch_info_ts_by_ref "main")
+          echo "Main timestamp: ${MAIN_TS}"
+          update_best "main" "main" "$MAIN_TS" "main"
+
+          # 再检查 open PR
+          echo "Checking open pull requests..."
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "${API_ROOT}/pulls?state=open&per_page=100" \
+            > .sync_tmp/pulls.json
+
+          PR_COUNT=$(jq 'length' .sync_tmp/pulls.json)
+          echo "Open PR count: ${PR_COUNT}"
+
+          if [ "$PR_COUNT" -gt 0 ]; then
+            while IFS= read -r row; do
+              PR_NUMBER=$(echo "$row" | jq -r '.number')
+              HEAD_SHA=$(echo "$row" | jq -r '.head.sha')
+
+              echo "Checking PR #${PR_NUMBER} (${HEAD_SHA})..."
+
+              if PR_TS=$(fetch_info_ts_by_ref "$HEAD_SHA" 2>/dev/null); then
+                echo "PR #${PR_NUMBER} timestamp: ${PR_TS}"
+                update_best "pr" "$HEAD_SHA" "$PR_TS" "pr #${PR_NUMBER}"
+              else
+                echo "PR #${PR_NUMBER} missing output/info.json, skipped."
+              fi
+            done < <(jq -c '.[]' .sync_tmp/pulls.json)
+          fi
+
+          echo "Best source label: ${BEST_LABEL:-<none>}"
+          echo "Best ref: ${BEST_REF:-<none>}"
+          echo "Best timestamp: ${BEST_TS:-<none>}"
+
+          SHOULD_SYNC="false"
+
+          if [ "${FORCE}" = "true" ]; then
+            SHOULD_SYNC="true"
+          elif [ ! -f "$LOCAL_INFO" ] || [ ! -f "$LOCAL_CLIENT" ] || [ ! -f "$LOCAL_OFFSETS" ]; then
+            SHOULD_SYNC="true"
+          elif [ -n "$BEST_TS" ] && [ "$BEST_TS" \> "$LOCAL_TS" ]; then
+            SHOULD_SYNC="true"
+          fi
+
+          echo "should_sync=${SHOULD_SYNC}" >> "$GITHUB_OUTPUT"
+          echo "best_ref=${BEST_REF}" >> "$GITHUB_OUTPUT"
+          echo "best_ts=${BEST_TS}" >> "$GITHUB_OUTPUT"
+          echo "best_label=${BEST_LABEL}" >> "$GITHUB_OUTPUT"
+
+      - name: Create offset directory
+        if: steps.resolve.outputs.should_sync == 'true'
+        run: mkdir -p "$LOCAL_DIR"
+
+      - name: Download newest files
+        if: steps.resolve.outputs.should_sync == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          API_ROOT="https://api.github.com/repos/${UPSTREAM_OWNER}/${UPSTREAM_REPO}/contents"
+          REF="${{ steps.resolve.outputs.best_ref }}"
+
+          download_file() {
+            local remote_path="$1"
+            local local_path="$2"
+
+            curl -fsSL \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              "${API_ROOT}/${remote_path}?ref=${REF}" \
+              | jq -r '.content' \
+              | tr -d '\n' \
+              | base64 -d \
+              > "${local_path}"
+          }
+
+          download_file "output/info.json" "$LOCAL_INFO"
+          download_file "output/client_dll.json" "$LOCAL_CLIENT"
+          download_file "output/offsets.json" "$LOCAL_OFFSETS"
+
+          echo "Downloaded files:"
+          echo "  $LOCAL_INFO"
+          echo "  $LOCAL_CLIENT"
+          echo "  $LOCAL_OFFSETS"
+
+      - name: Commit and push
+        if: steps.resolve.outputs.should_sync == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "$LOCAL_INFO" "$LOCAL_CLIENT" "$LOCAL_OFFSETS"
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: sync cs2-dumper (${{
+            steps.resolve.outputs.best_label
+          }}) @ ${{
+            steps.resolve.outputs.best_ts
+          }}"
+          git push
+
+      - name: No update
+        if: steps.resolve.outputs.should_sync != 'true'
+        run: echo "No newer timestamp found. Skip."
