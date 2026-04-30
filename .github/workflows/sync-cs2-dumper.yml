@@ -8,7 +8,6 @@ on:
         required: false
         default: "false"
   schedule:
-    # 每小时检查一次
     - cron: "0 */1 * * *"
 
 permissions:
@@ -25,11 +24,11 @@ jobs:
       UPSTREAM_OWNER: a2x
       UPSTREAM_REPO: cs2-dumper
 
-      # 本地目标目录
       LOCAL_DIR: offset
       LOCAL_INFO: offset/info.json
       LOCAL_CLIENT: offset/client_dll.json
       LOCAL_OFFSETS: offset/offsets.json
+      LOCAL_STEAMDB_UPDATE: offset/cs2_last_update.json
 
     steps:
       - name: Checkout current repository
@@ -50,7 +49,6 @@ jobs:
           API_ROOT="https://api.github.com/repos/${UPSTREAM_OWNER}/${UPSTREAM_REPO}"
           mkdir -p .sync_tmp
 
-          # 读取本地 timestamp（如果本地还没有文件，则为空）
           LOCAL_TS=""
           if [ -f "$LOCAL_INFO" ]; then
             LOCAL_TS=$(jq -r '.timestamp // ""' "$LOCAL_INFO")
@@ -83,6 +81,7 @@ jobs:
 
           fetch_info_ts_by_ref() {
             local ref="$1"
+
             curl -fsSL \
               -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer ${GH_TOKEN}" \
@@ -95,13 +94,11 @@ jobs:
             jq -r '.timestamp // ""' .sync_tmp/current_info.json
           }
 
-          # 先检查 main
           echo "Checking main..."
           MAIN_TS=$(fetch_info_ts_by_ref "main")
           echo "Main timestamp: ${MAIN_TS}"
           update_best "main" "main" "$MAIN_TS" "main"
 
-          # 再检查 open PR
           echo "Checking open pull requests..."
           curl -fsSL \
             -H "Accept: application/vnd.github+json" \
@@ -148,10 +145,9 @@ jobs:
           echo "best_label=${BEST_LABEL}" >> "$GITHUB_OUTPUT"
 
       - name: Create offset directory
-        if: steps.resolve.outputs.should_sync == 'true'
         run: mkdir -p "$LOCAL_DIR"
 
-      - name: Download newest files
+      - name: Download newest cs2-dumper files
         if: steps.resolve.outputs.should_sync == 'true'
         shell: bash
         env:
@@ -180,13 +176,62 @@ jobs:
           download_file "output/client_dll.json" "$LOCAL_CLIENT"
           download_file "output/offsets.json" "$LOCAL_OFFSETS"
 
-          echo "Downloaded files:"
-          echo "  $LOCAL_INFO"
-          echo "  $LOCAL_CLIENT"
-          echo "  $LOCAL_OFFSETS"
+          echo "Downloaded cs2-dumper files."
+
+      - name: Sync SteamDB CS2 last update
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RSS_URL="https://steamdb.info/api/PatchnotesRSS/?appid=730"
+
+          RSS_CONTENT=$(curl -s -L \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" \
+            "$RSS_URL")
+
+          if [ -z "$RSS_CONTENT" ]; then
+            echo "ERROR: curl empty response."
+            exit 1
+          fi
+
+          if ! echo "$RSS_CONTENT" | grep -q "<rss"; then
+            echo "ERROR: response is not RSS."
+            exit 1
+          fi
+
+          PUB_DATE=$(printf "%s\n" "$RSS_CONTENT" \
+            | sed 's#<#\n<#g' \
+            | grep '<pubDate>' \
+            | head -n1 \
+            | sed -e 's/^<pubDate>//' -e 's#</pubDate>##')
+
+          if [ -z "$PUB_DATE" ]; then
+            echo "ERROR: Unable to extract <pubDate>."
+            exit 1
+          fi
+
+          TS=$(date -u -d "$PUB_DATE" +"%s" 2>/dev/null)
+
+          if [ -z "$TS" ]; then
+            echo "ERROR: date parse failed."
+            exit 1
+          fi
+
+          ISO_TIME=$(date -u -d "@$TS" +"%Y-%m-%dT%H:%M:%S.000000000+00:00")
+
+          OLD_TIME=""
+          if [ -f "$LOCAL_STEAMDB_UPDATE" ]; then
+            OLD_TIME=$(jq -r '.last_update // ""' "$LOCAL_STEAMDB_UPDATE" 2>/dev/null || echo "")
+          fi
+
+          if [ "$ISO_TIME" = "$OLD_TIME" ]; then
+            echo "SteamDB update time unchanged. Skip writing."
+          else
+            echo "{\"last_update\":\"$ISO_TIME\"}" > "$LOCAL_STEAMDB_UPDATE"
+            echo "SteamDB updated: $ISO_TIME"
+          fi
 
       - name: Commit and push
-        if: steps.resolve.outputs.should_sync == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -194,29 +239,54 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add "$LOCAL_INFO" "$LOCAL_CLIENT" "$LOCAL_OFFSETS"
+          git add "$LOCAL_INFO" "$LOCAL_CLIENT" "$LOCAL_OFFSETS" "$LOCAL_STEAMDB_UPDATE"
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
+          CHANGED_FILES=$(git diff --cached --name-only)
+
+          CHANGED_OFFSET=false
+          CHANGED_STEAMDB=false
+
+          echo "$CHANGED_FILES" | grep -q "^${LOCAL_INFO}$" && CHANGED_OFFSET=true || true
+          echo "$CHANGED_FILES" | grep -q "^${LOCAL_CLIENT}$" && CHANGED_OFFSET=true || true
+          echo "$CHANGED_FILES" | grep -q "^${LOCAL_OFFSETS}$" && CHANGED_OFFSET=true || true
+          echo "$CHANGED_FILES" | grep -q "^${LOCAL_STEAMDB_UPDATE}$" && CHANGED_STEAMDB=true || true
+
           SOURCE_LABEL="${{ steps.resolve.outputs.best_label }}"
-          TS="${{ steps.resolve.outputs.best_ts }}"
+          OFFSET_TS="${{ steps.resolve.outputs.best_ts }}"
 
-          # 格式化时间：2026-03-27T23:59:59 → 2026-03-27 23:59
-          FORMATTED_TIME=$(date -u -d "$TS" +"%Y-%m-%d %H:%M")
-
-          if [[ "$SOURCE_LABEL" =~ ^pr\ \#([0-9]+)$ ]]; then
-            PR_NUMBER="${BASH_REMATCH[1]}"
-            COMMIT_MSG="offset update: ${FORMATTED_TIME}: sync cs2-dumper (PR #${PR_NUMBER})"
+          if [ -n "$OFFSET_TS" ]; then
+            FORMATTED_TIME=$(date -u -d "$OFFSET_TS" +"%Y-%m-%d %H:%M")
           else
-            COMMIT_MSG="offset update: ${FORMATTED_TIME}: sync cs2-dumper (main)"
+            FORMATTED_TIME=$(date -u +"%Y-%m-%d %H:%M")
           fi
+
+          if [ "$CHANGED_OFFSET" = true ] && [ "$CHANGED_STEAMDB" = true ]; then
+            TYPE_TEXT="offsets + steamdb"
+          elif [ "$CHANGED_OFFSET" = true ]; then
+            TYPE_TEXT="offsets"
+          elif [ "$CHANGED_STEAMDB" = true ]; then
+            TYPE_TEXT="steamdb"
+          else
+            TYPE_TEXT="files"
+          fi
+
+          if [ "$CHANGED_OFFSET" = true ] && [[ "$SOURCE_LABEL" =~ ^pr\ \#([0-9]+)$ ]]; then
+            PR_NUMBER="${BASH_REMATCH[1]}"
+            COMMIT_MSG="update: ${TYPE_TEXT}: ${FORMATTED_TIME} (PR #${PR_NUMBER})"
+          elif [ "$CHANGED_OFFSET" = true ]; then
+            COMMIT_MSG="update: ${TYPE_TEXT}: ${FORMATTED_TIME} (main)"
+          else
+            COMMIT_MSG="update: ${TYPE_TEXT}: ${FORMATTED_TIME}"
+          fi
+
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          echo "Commit message: $COMMIT_MSG"
 
           git commit -m "$COMMIT_MSG"
           git push
-
-      - name: No update
-        if: steps.resolve.outputs.should_sync != 'true'
-        run: echo "No newer timestamp found. Skip."
