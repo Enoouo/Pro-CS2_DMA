@@ -8,7 +8,7 @@ on:
         required: false
         default: "false"
   schedule:
-    - cron: "0 */1 * * *"
+    - cron: "19 * * * *"
 
 permissions:
   contents: write
@@ -139,6 +139,12 @@ jobs:
             SHOULD_SYNC="true"
           fi
 
+          # 防止 FORCE=true 时找不到可用 ref
+          if [ "$SHOULD_SYNC" = "true" ] && [ -z "$BEST_REF" ]; then
+            echo "No valid upstream ref found. Skip sync."
+            SHOULD_SYNC="false"
+          fi
+
           echo "should_sync=${SHOULD_SYNC}" >> "$GITHUB_OUTPUT"
           echo "best_ref=${BEST_REF}" >> "$GITHUB_OUTPUT"
           echo "best_ts=${BEST_TS}" >> "$GITHUB_OUTPUT"
@@ -179,6 +185,7 @@ jobs:
           echo "Downloaded cs2-dumper files."
 
       - name: Sync SteamDB CS2 last update
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -190,13 +197,13 @@ jobs:
             "$RSS_URL")
 
           if [ -z "$RSS_CONTENT" ]; then
-            echo "ERROR: curl empty response."
-            exit 1
+            echo "WARNING: curl empty response. Skip SteamDB sync."
+            exit 0
           fi
 
           if ! echo "$RSS_CONTENT" | grep -q "<rss"; then
-            echo "ERROR: response is not RSS."
-            exit 1
+            echo "WARNING: response is not RSS. Skip SteamDB sync."
+            exit 0
           fi
 
           PUB_DATE=$(printf "%s\n" "$RSS_CONTENT" \
@@ -206,15 +213,15 @@ jobs:
             | sed -e 's/^<pubDate>//' -e 's#</pubDate>##')
 
           if [ -z "$PUB_DATE" ]; then
-            echo "ERROR: Unable to extract <pubDate>."
-            exit 1
+            echo "WARNING: Unable to extract <pubDate>. Skip SteamDB sync."
+            exit 0
           fi
 
-          TS=$(date -u -d "$PUB_DATE" +"%s" 2>/dev/null)
+          TS=$(date -u -d "$PUB_DATE" +"%s" 2>/dev/null || true)
 
           if [ -z "$TS" ]; then
-            echo "ERROR: date parse failed."
-            exit 1
+            echo "WARNING: date parse failed. Skip SteamDB sync."
+            exit 0
           fi
 
           ISO_TIME=$(date -u -d "@$TS" +"%Y-%m-%dT%H:%M:%S.000000000+00:00")
@@ -289,4 +296,4 @@ jobs:
           echo "Commit message: $COMMIT_MSG"
 
           git commit -m "$COMMIT_MSG"
-          git push
+          git push origin HEAD:${GITHUB_REF_NAME}
